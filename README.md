@@ -2,7 +2,7 @@
 A Python script to randomly play a saved album in your Spotify library
 
 # Required libraries
-colorama, pillow, numpy
+spotipy, colorama, pillow, numpy
 
 # Configuration
 Execution requires an conf.json file to be present in the root directory with the following contents:
