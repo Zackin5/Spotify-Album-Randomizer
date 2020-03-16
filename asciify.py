@@ -1,13 +1,22 @@
-from PIL import Image
+from PIL import Image, ImageFilter
 import numpy as np
 import colorama
 import ANSILut
+import json
 
 ASCII_CHARS = ['.',',',':',';','+','*','?','%','S','#','@']
 # ASCII_CHARS = ['.',',',':',';','+','*','%','S','#']
 # ASCII_CHARS = ['.',':',';','s','*','o','S','O','X','H','0']
 # ASCII_CHARS = ['.',':','^','"','~','c','v','o','*','w','S','O','8','Q','0','#']
 ASCII_CHARS = ASCII_CHARS[::-1]
+
+# Load config
+with open('conf.json') as json_file:
+    conf = json.load(json_file)
+    art_method = 0
+
+    if 'art_method' in conf:
+        art_method = conf['art_method']
 
 '''
 method resize():
@@ -44,8 +53,8 @@ def draw(lutImage, fgColorImage, bgColorImage, buckets=25):
             fgColorPix = fg_color_pixels[x][y]
             bgColorPix = bg_color_pixels[x][y]
             char = ASCII_CHARS[charPix//buckets]
-            fgColor = ANSILut.Color_To_Ansi_Fore3(fgColorPix[0], fgColorPix[1], fgColorPix[2])
-            bgColor = ANSILut.Color_To_Ansi_Back(bgColorPix[0], bgColorPix[1], bgColorPix[2])
+            fgColor = ANSILut.Color_To_Ansi_Fore(fgColorPix)
+            bgColor = ANSILut.Color_To_Ansi_Back(bgColorPix)
             print("{}{}{}".format(fgColor,bgColor,char), sep='', end='')
         print(colorama.Style.RESET_ALL)
 
@@ -54,9 +63,23 @@ method do():
     - does all the work by calling all the above functions
 '''
 def do(image, new_width=100):
+    # pre-resize filtering
+    image = image.filter(ImageFilter.SHARPEN)
+
+    # resize
     bgImage = resize(image, new_width, Image.LANCZOS)
     fgImage = resize(image, new_width, Image.NEAREST)
+
+    if art_method >= 1:
+        bgImage = ANSILut.Image_To_Ansi_Pal(bgImage)
+        fgImage = ANSILut.Image_To_Ansi_Pal_Bright(fgImage)
+
     lutImage = grayscalify(bgImage)
 
+    # despi = fgImage.resize((100,100), Image.NEAREST)
+    # despi.show()
+    # despi = bgImage.resize((100,100), Image.NEAREST)
+    # despi.show()
+    
     draw(lutImage, fgImage, bgImage)
 
