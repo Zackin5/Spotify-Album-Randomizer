@@ -12,6 +12,9 @@ from PIL import Image
 with open('conf.json') as json_file:
     conf = json.load(json_file)
 
+# Windows ANSI color compat
+colorama.init()
+
 # Load token
 token = util.prompt_for_user_token(username=conf['username'], 
                                     scope='user-library-read user-modify-playback-state', 
@@ -25,6 +28,12 @@ if token:
     # Fetch album range and get a random index
     totalAlbums = sp.current_user_saved_albums(1,0)["total"]
     rAlbumIndex = random.randrange(1, totalAlbums)
+
+    # debug values
+    # rAlbumIndex = 250
+    # rAlbumIndex = 252
+    # rAlbumIndex = 3
+    # rAlbumIndex = 11
 
     # Request Album information
     randomAlbum = sp.current_user_saved_albums(1,rAlbumIndex)["items"][0]["album"]    
@@ -45,7 +54,6 @@ if token:
         else:
             artres = 24
 
-        colorama.init() # Windows ANSI color compat
         asciify.do(img, artres)
 
     # Print status messages

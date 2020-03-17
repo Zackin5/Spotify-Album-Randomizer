@@ -23,12 +23,16 @@ method resize():
     - takes as parameters the image, and the final width
     - resizes the image into the final width while maintaining aspect ratio
 '''
-def resize(image, new_width=100, filter=Image.BICUBIC):
+def resize(image, new_width=100, filter=Image.BICUBIC, filterYAxis=Image.BILINEAR):
     (old_width, old_height) = image.size
     aspect_ratio = float(old_height)/float(old_width)
-    new_height = int(aspect_ratio * new_width * 0.5)
+
+    new_height = int(aspect_ratio * new_width)
     new_dim = (new_width, new_height)
     new_image = image.resize(new_dim, filter)
+
+    y_correct_dim = (new_width, int(new_height * 0.5))
+    new_image = image.resize(y_correct_dim, filterYAxis)
     return new_image
 '''
 method grayscalify():
