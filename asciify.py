@@ -66,6 +66,10 @@ def draw(lutImage, fgColorImage, bgColorImage, buckets=25):
             print("{}{}{}".format(fgColor,bgColor,char), sep='', end='')
         print(colorama.Style.RESET_ALL)
 
+def drawDebug(image):
+    image = image.resize((100,100), Image.NEAREST)
+    image.show()
+
 '''
 method do():
     - does all the work by calling all the above functions
@@ -78,19 +82,16 @@ def do(image, new_width=100):
     bgImage = resize(image, new_width, Image.NEAREST, Image.LANCZOS)
     fgImage = resize(image, new_width, Image.NEAREST, Image.NEAREST)
 
-    # despi = bgImage.resize((100,100), Image.NEAREST)
-    # despi.show()
+    # drawDebug(bgImage)
 
     lutImage = grayscalify(bgImage)
 
     if art_method >= 1:
         bgImage = ANSILut.Image_To_Ansi_Pal(bgImage)
-        fgImage = ANSILut.Image_To_Ansi_Pal_Bright(fgImage)
+        fgImage = ANSILut.Image_To_Ansi_Pal_Fore(fgImage)
 
-    # despi = fgImage.resize((100,100), Image.NEAREST)
-    # despi.show()
-    # despi = bgImage.resize((100,100), Image.NEAREST)
-    # despi.show()
+    # drawDebug(fgImage)
+    # drawDebug(bgImage)
     
     draw(lutImage, fgImage, bgImage)
 

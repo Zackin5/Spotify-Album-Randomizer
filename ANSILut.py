@@ -42,6 +42,7 @@ LUT_BACK3 = [[[Back.BLACK,Back.GREEN,Back.GREEN],[Back.RED,Back.YELLOW,Back.GREE
 
 # ANSI Palette for conversion
 ANSI_PAL = [0,0,0, 192,0,0, 0,192,0, 0,0,192, 192,192,0, 192,0,192, 0,192,192, 192,192,192]
+# ANSI_PAL = [0,0,0, 255,0,0, 0,255,0, 0,0,255, 255,255,0, 255,0,255, 0,255,255, 255,255,255]
 ANSI_PAL_BRIGHT = [0,0,0, 128,0,0, 0,128,0, 0,0,128, 128,128,0, 128,0,128, 0,128,128, 192,192,192,
                     255,0,0, 0,255,0, 255,255,0, 0,0,255, 255,0,255, 0,255,255, 224,224,224]
 
@@ -75,9 +76,13 @@ def Image_To_Ansi_Pal(img):
 
     return palImage.convert('RGB')
     
-def Image_To_Ansi_Pal_Bright(img):
+def Image_To_Ansi_Pal_Fore(img):
     pal = Image.new('P', img.size)
-    pal.putpalette(ANSI_PAL_BRIGHT * 17)
+
+    if art_hi_pal:
+        pal.putpalette(ANSI_PAL_BRIGHT * 17)
+    else:
+        pal.putpalette(ANSI_PAL * 32)
     
     img = img.convert('RGB')
     
