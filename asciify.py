@@ -82,8 +82,8 @@ def do(image, new_width=100):
 
     # despi = fgImage.resize((100,100), Image.NEAREST)
     # despi.show()
-    despi = bgImage.resize((100,100), Image.NEAREST)
-    despi.show()
+    # despi = bgImage.resize((100,100), Image.NEAREST)
+    # despi.show()
     
     draw(lutImage, fgImage, bgImage)
 
