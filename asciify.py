@@ -74,6 +74,9 @@ def do(image, new_width=100):
     bgImage = resize(image, new_width, Image.LANCZOS)
     fgImage = resize(image, new_width, Image.NEAREST)
 
+    # despi = bgImage.resize((100,100), Image.NEAREST)
+    # despi.show()
+
     lutImage = grayscalify(bgImage)
 
     if art_method >= 1:
