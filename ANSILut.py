@@ -27,9 +27,9 @@ LUT_FORE3 = [[[Fore.BLACK,Fore.GREEN,Fore.GREEN],[Fore.RED,Fore.YELLOW,Fore.GREE
             [[Fore.BLUE,Fore.BLUE,Fore.CYAN],[Fore.MAGENTA,Fore.MAGENTA,Fore.CYAN],[Fore.MAGENTA,Fore.MAGENTA,Fore.WHITE]]]
 
 # 3x3x3 Foreground LUT (BRIGHT lookups)
-LUT_FORE3_BRIGHT = [[[Fore.BLACK, Fore.GREEN, Style.BRIGHT+Fore.GREEN+Style.NORMAL], [Fore.RED, Fore.RED, Fore.GREEN], [Style.BRIGHT+Fore.RED+Style.NORMAL, Fore.RED, Style.BRIGHT+Fore.YELLOW+Style.NORMAL]],
-[[Fore.BLUE, Fore.CYAN, Fore.CYAN], [Style.BRIGHT+Fore.BLUE+Style.NORMAL, Fore.WHITE, Fore.CYAN], [Style.BRIGHT+Fore.MAGENTA+Style.NORMAL, Fore.MAGENTA, Fore.WHITE]],
-[[Fore.BLUE, Fore.CYAN, Style.BRIGHT+Fore.CYAN+Style.NORMAL], [Fore.MAGENTA, Fore.WHITE, Style.BRIGHT+Fore.CYAN+Style.NORMAL], [Style.BRIGHT+Fore.MAGENTA+Style.NORMAL, Fore.MAGENTA, Style.BRIGHT+Fore.WHITE+Style.NORMAL]]]
+LUT_FORE3_BRIGHT = [[[Fore.BLACK, Fore.GREEN, Style.BRIGHT+Fore.GREEN], [Fore.RED, Fore.RED, Fore.GREEN], [Style.BRIGHT+Fore.RED, Fore.RED, Style.BRIGHT+Fore.YELLOW]],
+[[Fore.BLUE, Fore.CYAN, Fore.CYAN], [Style.BRIGHT+Fore.BLUE, Fore.WHITE, Fore.CYAN], [Style.BRIGHT+Fore.MAGENTA, Fore.MAGENTA, Fore.WHITE]],
+[[Fore.BLUE, Fore.CYAN, Style.BRIGHT+Fore.CYAN], [Fore.MAGENTA, Fore.WHITE, Style.BRIGHT+Fore.CYAN], [Style.BRIGHT+Fore.MAGENTA, Fore.MAGENTA, Style.BRIGHT+Fore.WHITE]]]
 
 # 2x2x2 Background LUT
 LUT_BACK2 = [[[Back.BLACK,Back.GREEN], [Back.RED,Back.YELLOW]],

@@ -1,6 +1,7 @@
 from PIL import Image, ImageFilter
 import numpy as np
 import colorama
+from colorama import Style
 import ANSILut
 import json
 
@@ -58,12 +59,14 @@ def draw(lutImage, fgColorImage, bgColorImage, buckets=25):
     for x in range(len(initial_pixels)):
         for y in range(len(initial_pixels[0])):
             charPix = initial_pixels[x][y]
+            
             fgColorPix = fg_color_pixels[x][y]
             bgColorPix = bg_color_pixels[x][y]
+
             char = ASCII_CHARS[charPix//buckets]
             fgColor = ANSILut.Color_To_Ansi_Fore(fgColorPix)
             bgColor = ANSILut.Color_To_Ansi_Back(bgColorPix)
-            print("{}{}{}".format(fgColor,bgColor,char), sep='', end='')
+            print("{}{}{}".format(fgColor,bgColor,char+Style.NORMAL), sep='', end='')
         print(colorama.Style.RESET_ALL)
 
 def drawDebug(image):
@@ -81,9 +84,11 @@ def do(image, new_width=100):
     # resize
     bgImage = resize(image, new_width, Image.NEAREST, Image.LANCZOS)
     fgImage = resize(image, new_width, Image.NEAREST, Image.NEAREST)
-
     # drawDebug(bgImage)
 
+    lutImage = image.filter(ImageFilter.FIND_EDGES)
+    lutImage = resize(lutImage, new_width, Image.LANCZOS, Image.LANCZOS)
+    
     lutImage = grayscalify(bgImage)
 
     if art_method >= 1:
