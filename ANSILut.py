@@ -53,72 +53,17 @@ def Color_To_Ansi_Fore(colorPix):
     g = colorPix[1]
     b = colorPix[2]
     
-    if art_method == 0:
-        if art_hi_pal:
-            return LUT_FORE3_BRIGHT[Float_To_Index(b, 3)][Float_To_Index(r, 3)][Float_To_Index(g, 3)]
-        else:
-            return LUT_FORE2[Float_To_Index(b, 2)][Float_To_Index(r, 2)][Float_To_Index(g, 2)]
+    if art_hi_pal:
+        return LUT_FORE3_BRIGHT[Float_To_Index(b, 3)][Float_To_Index(r, 3)][Float_To_Index(g, 3)]
     else:
-        # Palette conversion
-        if r == 128 and g == 0 and b == 0:
-            return Fore.RED
-        elif r >= 255 and g == 0 and b == 0:
-            return Style.BRIGHT+Fore.RED
-        elif r == 0 and g >= 255 and b == 0 and art_hi_pal:
-            return Style.BRIGHT+Fore.GREEN
-        elif r == 0 and g >= 128 and b == 0:
-            return Fore.GREEN
-        elif r == 0 and g == 0 and b >= 255 and art_hi_pal:
-            return Style.BRIGHT+Fore.BLUE
-        elif r == 0 and g == 0 and b >= 128:
-            return Fore.BLUE
-        elif r >= 255 and g >= 255 and b == 0 and art_hi_pal:
-            return Style.BRIGHT+Fore.YELLOW
-        elif r == 128 and g >= 128 and b == 0:
-            return Fore.YELLOW
-        elif r >= 255 and g == 0 and b >= 255 and art_hi_pal:
-            return Style.BRIGHT+Fore.MAGENTA
-        elif r == 128 and g == 0 and b >= 128:
-            return Fore.MAGENTA
-        elif r == 0 and g >= 255 and b >= 255 and art_hi_pal:
-            return Style.BRIGHT+Fore.CYAN
-        elif r == 0 and g >= 128 and b >= 128:
-            return Fore.CYAN
-        elif r >= 224 and g >= 224 and b >= 224 and art_hi_pal:
-            return Style.BRIGHT+Fore.WHITE
-        elif r >= 192 and g >= 192 and b >= 192:
-            return Fore.WHITE
-        # elif r >= 128 and g >= 128 and b >= 128:
-        #     return Style.BRIGHT+Fore.BLACK
-        else:
-            return Fore.BLACK
+        return LUT_FORE2[Float_To_Index(b, 2)][Float_To_Index(r, 2)][Float_To_Index(g, 2)]
 
 def Color_To_Ansi_Back(colorPix):
     r = colorPix[0]
     g = colorPix[1]
     b = colorPix[2]
     
-    if art_method == 0:
-        return LUT_BACK2[Float_To_Index(b, 2)][Float_To_Index(r, 2)][Float_To_Index(g, 2)]
-    else:
-        threshold = 128
-        
-        if r >= threshold and g == 0 and b == 0:
-            return Back.RED
-        elif r == 0 and g >= threshold and b == 0:
-            return Back.GREEN
-        elif r == 0 and g == 0 and b >= threshold:
-            return Back.BLUE
-        elif r >= threshold and g >= threshold and b == 0:
-            return Back.YELLOW
-        elif r >= threshold and g == 0 and b >= threshold:
-            return Back.MAGENTA
-        elif r == 0 and g >= threshold and b >= threshold:
-            return Back.CYAN
-        elif r >= threshold and g >= threshold and b >= threshold:
-            return Back.WHITE
-        else:
-            return Back.BLACK
+    return LUT_BACK2[Float_To_Index(b, 2)][Float_To_Index(r, 2)][Float_To_Index(g, 2)]
 
 def Image_To_Ansi_Pal(img):
     pal = Image.new('P', img.size)

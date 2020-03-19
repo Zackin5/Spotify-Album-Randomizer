@@ -23,13 +23,13 @@ method resize():
     - takes as parameters the image, and the final width
     - resizes the image into the final width while maintaining aspect ratio
 '''
-def resize(image, new_width=100, filter=Image.BICUBIC, filterYAxis=Image.BILINEAR):
+def resize(image, new_width=100, filterXAxis=Image.BICUBIC, filterYAxis=Image.BILINEAR):
     (old_width, old_height) = image.size
     aspect_ratio = float(old_height)/float(old_width)
 
     new_height = int(aspect_ratio * new_width)
-    new_dim = (new_width, new_height)
-    new_image = image.resize(new_dim, filter)
+    new_dim = (new_width, old_height)
+    new_image = image.resize(new_dim, filterXAxis)
 
     y_correct_dim = (new_width, int(new_height * 0.5))
     new_image = image.resize(y_correct_dim, filterYAxis)
@@ -74,16 +74,16 @@ def do(image, new_width=100):
     bgImage = resize(image, new_width, Image.LANCZOS)
     fgImage = resize(image, new_width, Image.NEAREST)
 
+    lutImage = grayscalify(bgImage)
+
     if art_method >= 1:
         bgImage = ANSILut.Image_To_Ansi_Pal(bgImage)
         fgImage = ANSILut.Image_To_Ansi_Pal_Bright(fgImage)
 
-    lutImage = grayscalify(bgImage)
-
     # despi = fgImage.resize((100,100), Image.NEAREST)
     # despi.show()
-    # despi = bgImage.resize((100,100), Image.NEAREST)
-    # despi.show()
+    despi = bgImage.resize((100,100), Image.NEAREST)
+    despi.show()
     
     draw(lutImage, fgImage, bgImage)
 
