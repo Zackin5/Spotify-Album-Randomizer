@@ -28,11 +28,15 @@ def resize(image, new_width=100, filterXAxis=Image.BICUBIC, filterYAxis=Image.BI
     aspect_ratio = float(old_height)/float(old_width)
 
     new_height = int(aspect_ratio * new_width)
-    new_dim = (new_width, old_height)
-    new_image = image.resize(new_dim, filterXAxis)
 
-    y_correct_dim = (new_width, int(new_height * 0.5))
+    # Scale X axis
+    x_correct_dim = (new_width, int(max(new_height, old_height / 2)))
+    new_image = image.resize(x_correct_dim, filterXAxis)
+
+    # Scale Y axis
+    y_correct_dim = (new_width, int(new_height / 2))
     new_image = image.resize(y_correct_dim, filterYAxis)
+
     return new_image
 '''
 method grayscalify():
@@ -68,11 +72,11 @@ method do():
 '''
 def do(image, new_width=100):
     # pre-resize filtering
-    image = image.filter(ImageFilter.SHARPEN)
+    image = image.filter(ImageFilter.UnsharpMask)
 
     # resize
-    bgImage = resize(image, new_width, Image.LANCZOS)
-    fgImage = resize(image, new_width, Image.NEAREST)
+    bgImage = resize(image, new_width, Image.NEAREST, Image.LANCZOS)
+    fgImage = resize(image, new_width, Image.NEAREST, Image.NEAREST)
 
     # despi = bgImage.resize((100,100), Image.NEAREST)
     # despi.show()
