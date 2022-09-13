@@ -16,11 +16,10 @@ with open('conf.json') as json_file:
 colorama.init()
 
 # Load token
-token = util.prompt_for_user_token(username=conf['username'], 
-                                    scope='user-library-read user-modify-playback-state', 
+token = util.prompt_for_user_token( scope='user-library-read user-modify-playback-state', 
                                     client_id=conf['client_id'], 
                                     client_secret=conf['client_secret'], 
-                                    redirect_uri='http://localhost/')
+                                    redirect_uri=conf['redirect_uri'])
 
 if token:
     sp = spotipy.Spotify(auth=token)
