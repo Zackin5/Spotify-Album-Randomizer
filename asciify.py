@@ -6,6 +6,7 @@ import ANSILut
 import json
 
 ASCII_CHARS = ['.',',',':',';','+','*','?','%','S','#','@']
+# ASCII_CHARS = [' ','⋅','⋰','∴','⛆']
 # ASCII_CHARS = ['.',',',':',';','+','*','%','S','#']
 # ASCII_CHARS = ['.',':',';','s','*','o','S','O','X','H','0']
 # ASCII_CHARS = ['.',':','^','"','~','c','v','o','*','w','S','O','8','Q','0','#']
@@ -63,7 +64,9 @@ def draw(lutImage, fgColorImage, bgColorImage, buckets=25):
             fgColorPix = fg_color_pixels[x][y]
             bgColorPix = bg_color_pixels[x][y]
 
-            char = ASCII_CHARS[charPix//buckets]
+            index = max(0, min(charPix//buckets, len(ASCII_CHARS) - 1))
+
+            char = ASCII_CHARS[index]
             fgColor = ANSILut.Color_To_Ansi_Fore(fgColorPix)
             bgColor = ANSILut.Color_To_Ansi_Back(bgColorPix)
             print("{}{}{}".format(fgColor,bgColor,char+Style.NORMAL), sep='', end='')

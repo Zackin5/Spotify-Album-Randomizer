@@ -1,6 +1,7 @@
 from colorama import Fore, Back, Style
 from PIL import Image
 import json
+import random
 
 # Load config
 with open('conf.json') as json_file:
@@ -42,10 +43,10 @@ LUT_BACK3 = [[[Back.BLACK,Back.GREEN,Back.GREEN],[Back.RED,Back.YELLOW,Back.GREE
 
 # ANSI Palette for conversion
 ANSI_PAL = [0,0,0, 192,0,0, 0,192,0, 0,0,192, 192,192,0, 192,0,192, 0,192,192, 192,192,192]
-# ANSI_PAL = [0,0,0, 255,0,0, 0,255,0, 0,0,255, 255,255,0, 255,0,255, 0,255,255, 255,255,255]
 ANSI_PAL_BRIGHT = [0,0,0, 128,0,0, 0,128,0, 0,0,128, 128,128,0, 128,0,128, 0,128,128, 192,192,192,
                     255,0,0, 0,255,0, 255,255,0, 0,0,255, 255,0,255, 0,255,255, 224,224,224]
 
+# Converts a float to a LUT lookup index
 def Float_To_Index(f, lutDimension = 2):
     return int(f/(256/lutDimension))
 
